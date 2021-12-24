@@ -1,0 +1,26 @@
+name: PackerImagePush
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Packer GitHub Actions
+        uses: hashicorp/packer-github-actions@v0.2.0
+        with:
+          command: build
+          arguments: -var-file ../Vars/azure.pkvars.hcl -var "subscription_id=${{ secrets.SUBSCRIPTION_ID }}" -var "tenant_id=${{ secrets.TENANT_ID }}" -var "client_id=${{ secrets.CLIENT_ID }}" -var "client_secret=${{ secrets.CLIENT_SECRET }}" .
+          target: Azure/main.pkr.hcl
+      
+      

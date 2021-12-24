@@ -21,6 +21,6 @@ jobs:
         with:
           command: build
           arguments: -var-file ../Vars/azure.pkvars.hcl -var "subscription_id=${{ secrets.SUBSCRIPTION_ID }}" -var "tenant_id=${{ secrets.TENANT_ID }}" -var "client_id=${{ secrets.CLIENT_ID }}" -var "client_secret=${{ secrets.CLIENT_SECRET }}" .
-          target: ./Azure/main.pkr.hcl
+          target: Azure/main.pkr.hcl
       
       
